@@ -62,14 +62,9 @@ body {
 #bg-canvas {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
-  opacity: 0.55;
-}
-
-.side-bar, .main, .main-content-wrap, .site-header, .site-footer {
-  position: relative;
-  z-index: 2;
+  opacity: 0.4;
 }
 
 .site-header {
