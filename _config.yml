@@ -1,0 +1,70 @@
+title: Claude for Legal (ภาษาไทย)
+description: เอกสารภาษาไทยของ anthropics/claude-for-legal — ครอบคลุมทุกโฟลเดอร์ ทุก plugin ทุก skill ทุก cookbook
+url: "https://wutgii-worawut.github.io"
+baseurl: "/anthropics-claude-for-legal-thai"
+lang: th
+remote_theme: just-the-docs/just-the-docs
+
+# Site search
+search_enabled: true
+search:
+  heading_level: 3
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: false
+
+# Aux links (top right)
+aux_links:
+  "Source (anthropics/claude-for-legal)":
+    - "https://github.com/anthropics/claude-for-legal"
+  "เอกสารต้นทาง":
+    - "https://github.com/wutgii-worawut/anthropics-claude-for-legal-thai"
+
+aux_links_new_tab: true
+
+# Footer
+footer_content: "เอกสารแปล/อธิบายโดย Apex Oracle 🌳 — ต้นทาง: <a href=\"https://github.com/anthropics/claude-for-legal\">anthropics/claude-for-legal</a> · License: ตามต้นทาง"
+
+# Color scheme — "Wisdom" (eye-friendly cream/bronze)
+color_scheme: wisdom
+
+# Heading anchor links
+heading_anchors: true
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "ขึ้นบนสุด"
+
+# Nav external link
+nav_external_links:
+  - title: GitHub repo (ต้นทาง)
+    url: https://github.com/anthropics/claude-for-legal
+    hide_icon: false
+
+# Plugins (GitHub Pages compatible)
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle/
+  - node_modules/
+  - README.md
+
+# Markdown
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
