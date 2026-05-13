@@ -1,7 +1,18 @@
-<!-- Google Fonts: Sarabun (Thai body), IBM Plex Sans Thai (Thai display), JetBrains Mono (code) -->
+<!-- Classical Manuscript Theme — Claude for Legal (ภาษาไทย) -->
+
+<!-- Google Fonts: EB Garamond (body), Cinzel (display), IBM Plex Sans Thai, JetBrains Mono -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cinzel:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Three.js for floating manuscript pages -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+  }
+}
+</script>
 
 <!-- Mermaid for diagrams -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -12,16 +23,15 @@
         startOnLoad: false,
         theme: "base",
         themeVariables: {
-          primaryColor: "#f6f3ea",
-          primaryTextColor: "#1d2826",
-          primaryBorderColor: "#7a9678",
-          lineColor: "#5a7a5e",
-          secondaryColor: "#dde6d4",
-          tertiaryColor: "#fbfaf3",
-          fontFamily: "'IBM Plex Sans Thai', 'Sarabun', sans-serif"
+          primaryColor: "#f3efe2",
+          primaryTextColor: "#161d1a",
+          primaryBorderColor: "#5a7a5e",
+          lineColor: "#44603f",
+          secondaryColor: "#d5e0cc",
+          tertiaryColor: "#faf8ee",
+          fontFamily: "'Cinzel', 'IBM Plex Sans Thai', serif"
         }
       });
-      // Transform code blocks with language-mermaid into mermaid diagrams
       document.querySelectorAll('pre code.language-mermaid, code.language-mermaid').forEach(function(el) {
         var pre = el.closest('pre');
         var div = document.createElement('div');
@@ -35,6 +45,102 @@
   });
 </script>
 
+<!-- Three.js: floating manuscript pages with slow rotation -->
+<script type="module">
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // skip animation
+  } else {
+    import('three').then(THREE => {
+      const canvas = document.createElement('canvas');
+      canvas.id = 'bg-canvas';
+      document.body.insertBefore(canvas, document.body.firstChild);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 14;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Soft warm light (parchment glow)
+      const ambient = new THREE.AmbientLight(0xfaf8ee, 0.5);
+      scene.add(ambient);
+      const key = new THREE.DirectionalLight(0xd4b079, 0.6);
+      key.position.set(5, 5, 5);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0x5a7a5e, 0.25);
+      fill.position.set(-5, -3, 3);
+      scene.add(fill);
+
+      // Floating manuscript pages — 5 quads with parchment material
+      const pages = [];
+      const pageGeom = new THREE.PlaneGeometry(2.6, 3.5, 1, 1);
+      const pageMat = new THREE.MeshLambertMaterial({
+        color: 0xf3efe2,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.85,
+        emissive: 0xb8893a,
+        emissiveIntensity: 0.04,
+      });
+
+      for (let i = 0; i < 5; i++) {
+        const page = new THREE.Mesh(pageGeom, pageMat);
+        page.position.set(
+          (Math.random() - 0.5) * 14,
+          (Math.random() - 0.5) * 10,
+          (Math.random() - 0.5) * 6 - 2
+        );
+        page.rotation.x = Math.random() * Math.PI;
+        page.rotation.y = Math.random() * Math.PI;
+        page.userData = {
+          rotSpeedX: (Math.random() - 0.5) * 0.0015,
+          rotSpeedY: (Math.random() - 0.5) * 0.002,
+          driftX: (Math.random() - 0.5) * 0.0008,
+          driftY: (Math.random() - 0.5) * 0.0008,
+        };
+        scene.add(page);
+        pages.push(page);
+      }
+
+      // Resize handler
+      function onResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      window.addEventListener('resize', onResize);
+
+      // Pause when tab hidden
+      let running = true;
+      document.addEventListener('visibilitychange', () => {
+        running = !document.hidden;
+        if (running) animate();
+      });
+
+      function animate() {
+        if (!running) return;
+        requestAnimationFrame(animate);
+        pages.forEach(p => {
+          p.rotation.x += p.userData.rotSpeedX;
+          p.rotation.y += p.userData.rotSpeedY;
+          p.position.x += p.userData.driftX;
+          p.position.y += p.userData.driftY;
+          // Wrap around
+          if (p.position.x > 10) p.position.x = -10;
+          if (p.position.x < -10) p.position.x = 10;
+          if (p.position.y > 7) p.position.y = -7;
+          if (p.position.y < -7) p.position.y = 7;
+        });
+        renderer.render(scene, camera);
+      }
+      animate();
+    }).catch(err => console.warn('Three.js scene failed:', err));
+  }
+</script>
+
 <!-- Meta -->
-<meta name="theme-color" content="#1d2826">
+<meta name="theme-color" content="#161d1a">
 <meta http-equiv="content-language" content="th">

@@ -1,38 +1,37 @@
-// "Wisdom" — softer, eye-friendly variant of Yggdrasil's Archive
-// Less yellow, less harsh contrast, more neutral parchment tones
+// "Wisdom" — Classical Manuscript palette
+// Aged parchment + sage-ink + gold leaf accent
+// Designed for legal scholarship — feels like an illuminated manuscript
 
 // === Font stacks ===
-$body-font-family: "Sarabun", "IBM Plex Sans Thai", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-$body-heading-font-family: "IBM Plex Sans Thai", "Sarabun", -apple-system,
-  BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+$body-font-family: "EB Garamond", "Sarabun", "IBM Plex Sans Thai", Georgia, serif !important;
+$body-heading-font-family: "Cinzel", "IBM Plex Sans Thai", "EB Garamond", Georgia, serif !important;
 $mono-font-family: "JetBrains Mono", "Sarabun", "SF Mono", Menlo, Consolas, monospace !important;
 
 // === Base sizes ===
-$body-font-size: 1.0625rem;
-$body-line-height: 1.8;
-$content-line-height: 1.8;
-$body-heading-line-height: 1.4;
+$body-font-size: 1.0875rem;
+$body-line-height: 1.85;
+$content-line-height: 1.85;
+$body-heading-line-height: 1.3;
 
-// === Color palette — softer, less yellow ===
-$body-background-color: #f7f5ec;             // warm off-white (less yellow)
-$sidebar-color: #efe9d6;                     // muted parchment
-$body-text-color: #2d3748;                   // slate-700 (softer than ink-blue)
-$body-heading-color: #1a202c;                // slate-800
-$link-color: #9c7c2e;                        // bronze gold (less saturated)
-$btn-primary-color: #2d3748;
-$base-button-color: #efe9d6;
+// === Color palette — aged manuscript ===
+$body-background-color: #f3efe2;              // aged parchment
+$sidebar-color: #e8e2cf;                       // older parchment
+$body-text-color: #2a3330;                     // deep sage-ink
+$body-heading-color: #161d1a;                  // near black sage
+$link-color: #5a7a5e;                          // muted sage green
+$btn-primary-color: #2a3330;
+$base-button-color: #e8e2cf;
 
 // === Search ===
-$search-background-color: #fcfaf2;
-$search-result-preview-color: #6b7280;
+$search-background-color: #faf8ee;
+$search-result-preview-color: #6b766c;
 
 // === Code blocks ===
-$code-background-color: #ede5c8;
-$feedback-color: #e8e1cb;
+$code-background-color: #e3decb;
+$feedback-color: #e0dac4;
 
 // === Borders ===
-$border-color: #d4c290;
+$border-color: #c4bea0;
 
 // === Tables ===
-$table-background-color: #fcfaf2;
+$table-background-color: #faf8ee;

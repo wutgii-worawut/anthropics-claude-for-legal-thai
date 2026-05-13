@@ -1,299 +1,351 @@
 // =====================================================================
-// Yggdrasil's Archive — eye-friendly v2
-// Softer cream/bronze palette, lower contrast, fixed table-wrapper issue
+// CLASSICAL MANUSCRIPT — Claude for Legal (ภาษาไทย)
+// Aged parchment, sage-ink, gold leaf accent
+// EB Garamond + Cinzel + IBM Plex Sans Thai
 // =====================================================================
 
-// ===== Color tokens (single source of truth) =====
-$ink-900:       #1a202c;       // strongest text
-$ink-700:       #2d3748;       // body text
-$ink-500:       #4a5568;       // muted text
-$ink-400:       #6b7280;       // very muted
+// ===== Color tokens =====
+$ink-900:       #161d1a;       // deepest text
+$ink-700:       #2a3330;       // body text
+$ink-500:       #4d5854;       // muted
+$ink-400:       #6b766c;       // very muted
+$ink-300:       #8a958f;       // hint
 
-$paper-100:     #fcfaf2;       // card / table odd
-$paper-200:     #f7f5ec;       // page background
-$paper-300:     #f0ead8;       // sidebar / table even
-$paper-400:     #e8e1cb;       // borders soft
-$paper-500:     #d4c290;       // borders gold-cream
+$parchment-50:  #faf8ee;       // brightest highlight
+$parchment-100: #f3efe2;       // page bg
+$parchment-200: #ebe5d2;       // sidebar
+$parchment-300: #e0d9bf;       // alt row
+$parchment-400: #c4bea0;       // border
+$parchment-500: #a8a387;       // strong border
 
-$gold-300:      #d4a85a;       // soft gold for accents
-$gold-500:      #b8893a;       // primary gold (bronze)
-$gold-600:      #9c7c2e;       // link
-$gold-700:      #7a6020;       // hover link
-$gold-100:      #f5e9c8;       // pale gold (inline code bg)
+$sage-300:      #a3b69d;       // pale sage
+$sage-500:      #5a7a5e;       // primary sage
+$sage-600:      #44603f;       // sage hover
+$sage-700:      #2d4527;       // deepest sage
+$sage-100:      #d5e0cc;       // pale sage bg
 
-$slate-900:     #1e293b;       // code block bg (not pure black)
-$slate-700:     #334155;       // code block alt
+$gold-leaf:     #b8893a;       // illuminated initial
+$gold-leaf-soft:#d4b079;       // gold border
+$gold-leaf-deep:#7a5818;       // gold hover
+
+$ms-bg:         #1f2722;       // code block bg
 
 // ===== Global =====
-html { scroll-behavior: smooth; background: $paper-300; }
+html {
+  scroll-behavior: smooth;
+  background: $parchment-200;
+}
 
 body {
-  font-feature-settings: "kern" 1, "liga" 1;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background: $paper-200 !important;
+  background: $parchment-100 !important;
   color: $ink-700 !important;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(184, 137, 58, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(90, 122, 94, 0.04) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.18 0 0 0 0 0.13 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.6;
+  }
 }
 
-// ===== Site Header (top bar) =====
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.side-bar, .main, .main-content-wrap, .site-header, .site-footer {
+  position: relative;
+  z-index: 2;
+}
+
 .site-header {
-  background: $paper-200 !important;
-  border-bottom: 1px solid $paper-500 !important;
-  box-shadow: 0 1px 0 rgba($paper-500, 0.3);
+  background: rgba($parchment-100, 0.92) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $parchment-400 !important;
+  box-shadow: 0 1px 0 rgba($parchment-500, 0.3);
 }
 
 .site-title {
-  font-family: "IBM Plex Sans Thai", "Sarabun", serif !important;
-  font-weight: 700 !important;
-  font-size: 1.1rem !important;
+  font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
   color: $ink-900 !important;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
 
   &::before {
-    content: "🌳 ";
-    margin-right: 0.2em;
+    content: "⚖ ";
+    color: $gold-leaf;
+    margin-right: 0.4em;
+    font-size: 1.1em;
   }
 }
 
-// ===== Sidebar =====
 .side-bar {
-  background: $paper-300 !important;
-  border-right: 1px solid $paper-500 !important;
+  background: rgba($parchment-200, 0.92) !important;
+  backdrop-filter: blur(6px);
+  border-right: 1px solid $parchment-400 !important;
 }
 
-// ===== Navigation =====
 .nav-list .nav-list-item {
-  font-family: "Sarabun", sans-serif !important;
+  font-family: "EB Garamond", "Sarabun", serif !important;
 
   .nav-list-link {
     color: $ink-500 !important;
-    line-height: 1.6 !important;
-    border-radius: 3px;
-    transition: all 0.15s ease;
+    line-height: 1.55 !important;
+    font-size: 0.97em !important;
+    border-radius: 2px;
+    transition: all 0.2s ease;
 
     &:hover {
-      background: rgba($gold-500, 0.1) !important;
-      color: $gold-700 !important;
+      background: rgba($sage-500, 0.1) !important;
+      color: $sage-700 !important;
+      padding-left: 1.1em !important;
     }
     &.active {
-      background: $gold-500 !important;
-      color: #ffffff !important;
-      font-weight: 600 !important;
+      background: linear-gradient(90deg, $sage-700 0%, $sage-500 100%) !important;
+      color: $parchment-50 !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.02em;
     }
   }
 
-  .nav-list-expander { color: $gold-600 !important; }
+  .nav-list-expander { color: $gold-leaf !important; }
 }
 
-// ===== Search =====
 .search-input {
-  font-family: "Sarabun", sans-serif !important;
-  font-size: 1rem !important;
-  background: $paper-100 !important;
-  border: 1px solid $paper-500 !important;
+  font-family: "EB Garamond", "Sarabun", serif !important;
+  font-size: 1.02em !important;
+  background: rgba($parchment-50, 0.9) !important;
+  border: 1px solid $parchment-400 !important;
   color: $ink-700 !important;
-  &::placeholder { color: $ink-400; }
+  &::placeholder { color: $ink-400; font-style: italic; }
 }
 
 .search-results {
-  background: $paper-100;
-  border: 1px solid $paper-500;
+  background: $parchment-50;
+  border: 1px solid $parchment-400;
 }
 
-// ===== Main content =====
 .main-content-wrap {
-  background: $paper-200 !important;
+  background: transparent !important;
 }
 
 .main-content {
-  font-size: 1.0625rem !important;
-  line-height: 1.85 !important;
-  letter-spacing: 0.003em;
-  max-width: 80ch;
+  font-size: 1.0875rem !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.005em;
+  max-width: 76ch;
   color: $ink-700 !important;
-  font-family: "Sarabun", "IBM Plex Sans Thai", sans-serif !important;
+  font-family: "EB Garamond", "Sarabun", "IBM Plex Sans Thai", serif !important;
+  font-feature-settings: "onum" 1, "liga" 1;
 
   p {
-    margin-bottom: 1.25em;
+    margin-bottom: 1.3em;
     color: $ink-700;
   }
 
   // ===== Headings =====
   h1 {
-    font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
-    font-size: 2.3rem !important;
+    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+    font-size: 2.4rem !important;
     font-weight: 700 !important;
-    letter-spacing: -0.015em;
-    margin-top: 0.3em !important;
-    margin-bottom: 0.6em !important;
-    padding-bottom: 0.35em;
-    border-bottom: 2px solid $gold-500 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase;
+    margin-top: 0.4em !important;
+    margin-bottom: 0.9em !important;
+    padding-bottom: 0.4em;
     color: $ink-900 !important;
-    line-height: 1.3 !important;
-  }
+    line-height: 1.25 !important;
+    position: relative;
+    border-bottom: 1px solid $gold-leaf !important;
 
-  h2 {
-    font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
-    font-size: 1.65rem !important;
-    font-weight: 600 !important;
-    margin-top: 2em !important;
-    margin-bottom: 0.7em !important;
-    padding: 0.25em 0 0.25em 0.85em !important;
-    border-left: 4px solid $gold-500 !important;
-    color: $ink-900 !important;
-    line-height: 1.4 !important;
-  }
-
-  h3 {
-    font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
-    font-size: 1.3rem !important;
-    font-weight: 600 !important;
-    margin-top: 1.7em !important;
-    margin-bottom: 0.55em !important;
-    color: $ink-900 !important;
-    line-height: 1.45 !important;
-
-    &::before {
-      content: "▸ ";
-      color: $gold-500;
-      font-weight: 700;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: $gold-leaf-soft;
     }
   }
 
-  h4 {
-    font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
-    font-size: 1.1rem !important;
+  h2 {
+    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+    font-size: 1.55rem !important;
     font-weight: 600 !important;
-    margin-top: 1.4em !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2.2em !important;
+    margin-bottom: 0.8em !important;
+    color: $ink-900 !important;
+    line-height: 1.4 !important;
+    position: relative;
+
+    &::before {
+      content: "❦";
+      color: $gold-leaf;
+      font-size: 0.7em;
+      margin-right: 0.55em;
+      vertical-align: middle;
+    }
+  }
+
+  h3 {
+    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em;
+    margin-top: 1.8em !important;
+    margin-bottom: 0.5em !important;
+    color: $sage-700 !important;
+    line-height: 1.45 !important;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-family: "EB Garamond", "IBM Plex Sans Thai", serif !important;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    font-style: italic;
+    margin-top: 1.5em !important;
     color: $ink-500 !important;
   }
 
   h5, h6 {
-    font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
+    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
     color: $ink-500 !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.85rem !important;
+    letter-spacing: 0.1em;
+    font-size: 0.82rem !important;
   }
 
   // ===== Lists =====
   ul {
     list-style: none;
-    padding-left: 1.5em;
-    margin-bottom: 1.25em;
+    padding-left: 1.6em;
+    margin-bottom: 1.3em;
 
     li {
       position: relative;
-      margin-bottom: 0.35em;
-      line-height: 1.8;
+      margin-bottom: 0.4em;
+      line-height: 1.85;
 
       &::before {
-        content: "◆";
+        content: "❧";
         position: absolute;
-        left: -1.3em;
-        top: 0.1em;
-        color: $gold-500;
-        font-size: 0.7em;
+        left: -1.4em;
+        top: 0.05em;
+        color: $gold-leaf;
+        font-size: 0.95em;
       }
 
-      ul li::before { content: "○"; }
-      ul ul li::before { content: "·"; font-size: 1em; }
+      ul li::before { content: "·"; color: $sage-600; font-size: 1.4em; left: -1.2em; top: -0.2em; }
+      ul ul li::before { content: "◦"; font-size: 0.8em; }
     }
-
-    ul, ol { margin: 0.35em 0 0.35em 0; }
   }
 
   ol {
-    padding-left: 1.5em;
-    margin-bottom: 1.25em;
+    padding-left: 2em;
+    margin-bottom: 1.3em;
     counter-reset: list-counter;
     list-style: none;
 
     > li {
       counter-increment: list-counter;
       position: relative;
-      margin-bottom: 0.35em;
-      line-height: 1.8;
+      margin-bottom: 0.4em;
+      line-height: 1.85;
 
       &::before {
-        content: counter(list-counter) ".";
+        content: counter(list-counter, upper-roman) ".";
         position: absolute;
-        left: -1.8em;
+        left: -2.2em;
         top: 0;
-        color: $gold-600;
-        font-weight: 700;
-        min-width: 1.5em;
+        color: $gold-leaf;
+        font-family: "Cinzel", serif;
+        font-weight: 600;
+        min-width: 1.8em;
         text-align: right;
+        letter-spacing: 0.05em;
       }
     }
   }
 
-  // ===== Strong / em =====
   strong {
     color: $ink-900;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   em {
-    color: $ink-500;
+    color: $sage-700;
     font-style: italic;
   }
 
-  // ===== Links =====
   a:not(.btn) {
-    color: $gold-600 !important;
-    text-decoration: underline !important;
-    text-decoration-color: rgba($gold-500, 0.4) !important;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+    color: $sage-600 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba($sage-500, 0.35) !important;
+    padding-bottom: 1px;
+    transition: all 0.15s ease;
 
     &:hover {
-      color: $gold-700 !important;
-      text-decoration-color: $gold-500 !important;
-      text-decoration-thickness: 2px !important;
+      color: $sage-700 !important;
+      border-bottom-color: $sage-500 !important;
+      background: rgba($sage-500, 0.05);
     }
   }
 
-  // ===== Blockquotes =====
   blockquote {
-    margin: 1.5em 0 !important;
-    padding: 0.9em 1.3em !important;
-    border-left: 4px solid $gold-500 !important;
-    background: $paper-100 !important;
-    color: $ink-500 !important;
+    margin: 1.8em 0 !important;
+    padding: 1.1em 1.5em 1.1em 2.3em !important;
+    border: none !important;
+    background: rgba($parchment-50, 0.6) !important;
+    color: $ink-700 !important;
+    font-family: "EB Garamond", "Sarabun", serif !important;
     font-style: italic;
-    border-radius: 0 5px 5px 0;
+    font-size: 1.08em;
     position: relative;
+    border-left: 3px solid $gold-leaf !important;
 
     &::before {
       content: "❝";
       position: absolute;
-      left: 0.4em;
-      top: -0.1em;
-      font-size: 2em;
-      color: rgba($gold-500, 0.3);
+      left: 0.6em;
+      top: 0.15em;
+      font-size: 2.2em;
+      color: $gold-leaf-soft;
       line-height: 1;
-      font-family: serif;
+      font-family: Georgia, serif;
     }
 
-    p { margin-bottom: 0.5em; }
+    p { margin-bottom: 0.6em; }
     p:last-child { margin-bottom: 0; }
   }
 
-  // ===== TABLES — fix .table-wrapper conflicts =====
-  // The theme wraps tables in .table-wrapper with conflicting styles.
-  // We use HIGH specificity + !important to override consistently.
-
   .table-wrapper {
-    border-radius: 6px !important;
-    box-shadow: 0 1px 3px rgba($ink-900, 0.06), 0 4px 12px rgba($ink-900, 0.04) !important;
-    margin: 1.5em 0 !important;
-    background: $paper-100 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 1px 0 $parchment-400, 0 8px 24px rgba($ink-900, 0.04) !important;
+    margin: 1.8em 0 !important;
+    background: $parchment-50 !important;
     overflow: hidden !important;
-    border: 1px solid $paper-500 !important;
+    border: 1px solid $parchment-400 !important;
   }
 
   table,
@@ -303,296 +355,285 @@ body {
     border-collapse: separate !important;
     border-spacing: 0 !important;
     margin: 0 !important;
-    font-size: 0.95em !important;
-    background: $paper-100 !important;
+    font-size: 0.97em !important;
+    font-family: "EB Garamond", "Sarabun", serif !important;
+    background: $parchment-50 !important;
     border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
 
-    // Header — VERY clear distinction
     thead {
-      background: $slate-900 !important;
-      tr { background: $slate-900 !important; }
+      background: $ink-900 !important;
+      tr { background: $ink-900 !important; }
       th,
       .main-content & th {
-        padding: 0.85em 1.1em !important;
-        font-family: "IBM Plex Sans Thai", sans-serif !important;
-        font-weight: 600 !important;
-        color: #f7f5ec !important;
+        padding: 0.95em 1.2em !important;
+        font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+        font-weight: 500 !important;
+        color: $parchment-50 !important;
         text-align: left !important;
+        text-transform: uppercase;
+        letter-spacing: 0.1em !important;
         border: none !important;
-        border-bottom: 2px solid $gold-500 !important;
-        font-size: 0.95em !important;
-        letter-spacing: 0.02em !important;
-        background: $slate-900 !important;
+        border-bottom: 2px solid $gold-leaf !important;
+        font-size: 0.82em !important;
+        background: $ink-900 !important;
       }
     }
 
-    // Body
     tbody {
       tr {
-        background: $paper-100 !important;
-        border-bottom: 1px solid $paper-400 !important;
+        background: $parchment-50 !important;
+        border-bottom: 1px solid $parchment-300 !important;
         transition: background 0.15s ease;
 
-        &:nth-child(even) { background: $paper-300 !important; }
-        &:hover { background: rgba($gold-300, 0.15) !important; }
+        &:nth-child(even) { background: rgba($parchment-200, 0.4) !important; }
+        &:hover { background: rgba($sage-300, 0.18) !important; }
         &:last-child { border-bottom: none !important; }
       }
 
       td,
       .main-content & td {
-        padding: 0.75em 1.1em !important;
+        padding: 0.85em 1.2em !important;
         border: none !important;
         vertical-align: top !important;
         color: $ink-700 !important;
         background: transparent !important;
         font-size: 1em !important;
-        min-width: auto !important;
       }
     }
   }
 
-  // Force .table-wrapper td overrides (theme uses these for code-example blocks)
-  .table-wrapper td { font-size: 0.95em !important; }
-
-  // ===== Inline code =====
   code {
-    font-family: "JetBrains Mono", "Sarabun", monospace !important;
-    font-size: 0.88em !important;
-    padding: 0.15em 0.45em !important;
-    background: $gold-100 !important;
-    color: $gold-700 !important;
-    border-radius: 3px !important;
-    border: 1px solid rgba($gold-500, 0.25) !important;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 0.86em !important;
+    padding: 0.18em 0.5em !important;
+    background: rgba($gold-leaf-soft, 0.18) !important;
+    color: $gold-leaf-deep !important;
+    border-radius: 2px !important;
+    border: 1px solid rgba($gold-leaf-soft, 0.4) !important;
     white-space: nowrap;
   }
 
-  // ===== Code blocks (softer dark) =====
   pre,
   div.highlighter-rouge,
   figure.highlight,
   div.highlight {
-    background: $slate-900 !important;
-    color: #e2e8f0 !important;
-    border-radius: 6px !important;
-    padding: 1em 1.2em !important;
-    margin: 1.5em 0 !important;
+    background: $ms-bg !important;
+    color: #d5cea3 !important;
+    border-radius: 3px !important;
+    padding: 1.1em 1.3em !important;
+    margin: 1.8em 0 !important;
     overflow-x: auto !important;
-    box-shadow: 0 2px 8px rgba($ink-900, 0.1) !important;
-    border-left: 3px solid $gold-500 !important;
+    box-shadow: 0 2px 12px rgba($ink-900, 0.12) !important;
+    border-left: 3px solid $gold-leaf !important;
 
     pre, code {
       background: transparent !important;
-      color: #e2e8f0 !important;
+      color: #d5cea3 !important;
       border: none !important;
       padding: 0 !important;
       font-family: "JetBrains Mono", monospace !important;
-      font-size: 0.875rem !important;
-      line-height: 1.65 !important;
+      font-size: 0.86rem !important;
+      line-height: 1.7 !important;
       white-space: pre !important;
     }
   }
 
-  // ===== Syntax highlighting (softer colors) =====
   .highlight {
-    .c, .c1, .cm  { color: #94a3b8 !important; font-style: italic; } // comments
-    .k, .kd, .kn, .kr { color: #f0a868 !important; }                  // keywords
-    .s, .s1, .s2 { color: #a3d977 !important; }                       // strings
-    .n, .nx      { color: #e2e8f0 !important; }
-    .nf, .nc     { color: #e0c177 !important; }                       // function/class
-    .nb          { color: #f0c879 !important; }
-    .mi, .m, .mf { color: #f0c879 !important; }                       // numbers
-    .o, .ow      { color: #f0a868 !important; }                       // operators
-    .p           { color: #cbd5e1 !important; }
-    .err         { color: #f87171 !important; }
+    .c, .c1, .cm  { color: #7a8a7e !important; font-style: italic; }
+    .k, .kd, .kn, .kr { color: #d4a85a !important; }
+    .s, .s1, .s2 { color: #a8c39e !important; }
+    .n, .nx      { color: #d5cea3 !important; }
+    .nf, .nc     { color: #e3c98c !important; }
+    .nb          { color: #c4b884 !important; }
+    .mi, .m, .mf { color: #d4a85a !important; }
+    .o, .ow      { color: #d4a85a !important; }
+    .p           { color: #c4bea0 !important; }
+    .err         { color: #e8a8a8 !important; }
   }
 
-  // ===== Mermaid =====
   .mermaid {
-    background: $paper-100 !important;
+    background: $parchment-50 !important;
     padding: 1.5em !important;
-    border-radius: 6px !important;
-    border: 1px solid $paper-500 !important;
-    margin: 1.5em 0 !important;
+    border-radius: 3px !important;
+    border: 1px solid $parchment-400 !important;
+    margin: 1.8em 0 !important;
     text-align: center;
     overflow-x: auto;
   }
 
-  // ===== HR =====
   hr {
     border: none !important;
-    height: 3px !important;
+    height: 2em !important;
     background: transparent !important;
-    background-image: radial-gradient(circle, $gold-300 1px, transparent 1px) !important;
-    background-size: 10px 3px !important;
-    background-repeat: repeat-x !important;
-    background-position: center !important;
-    margin: 2.2em 0 !important;
-    opacity: 0.7;
+    margin: 2.5em 0 !important;
+    text-align: center;
+    overflow: visible;
+    position: relative;
+
+    &::before {
+      content: "❦   ❦   ❦";
+      color: $gold-leaf;
+      font-size: 1em;
+      letter-spacing: 0.5em;
+      line-height: 2em;
+    }
   }
 
-  // ===== Images =====
   img {
     max-width: 100%;
-    border-radius: 5px;
-    box-shadow: 0 1px 6px rgba($ink-900, 0.08);
-    margin: 0.75em 0;
+    border-radius: 2px;
+    box-shadow: 0 2px 12px rgba($ink-900, 0.1);
+    margin: 1em 0;
+    border: 1px solid $parchment-400;
   }
 
-  // ===== Definition lists =====
-  dl {
-    margin: 1.25em 0;
-    dt {
-      font-weight: 700;
-      color: $ink-900;
-      margin-top: 1em;
-      font-family: "IBM Plex Sans Thai", sans-serif;
-    }
-    dd {
-      margin-left: 1.5em;
-      color: $ink-500;
-      margin-bottom: 0.5em;
-    }
-  }
-
-  // ===== Keyboard =====
   kbd {
-    background: $paper-300;
+    background: $parchment-200;
     color: $ink-900;
-    border: 1px solid $gold-500;
+    border: 1px solid $parchment-500;
     border-bottom-width: 2px;
-    border-radius: 3px;
+    border-radius: 2px;
     padding: 0.15em 0.45em;
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.85em;
+    font-size: 0.82em;
   }
 }
 
-// ===== Buttons =====
 .btn {
-  font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
+  font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
   font-weight: 500 !important;
-  border-radius: 4px !important;
+  border-radius: 2px !important;
   transition: all 0.2s ease !important;
-  letter-spacing: 0.01em;
-  padding: 0.55em 1.1em !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  padding: 0.65em 1.4em !important;
+  font-size: 0.85em !important;
 
   &.btn-primary {
     background: $ink-900 !important;
-    color: $paper-200 !important;
+    color: $parchment-50 !important;
     border: 1px solid $ink-900 !important;
-    box-shadow: 0 1px 3px rgba($ink-900, 0.15);
+    box-shadow: 0 1px 0 $gold-leaf;
     &:hover {
-      background: $gold-500 !important;
-      border-color: $gold-500 !important;
+      background: $sage-700 !important;
+      border-color: $sage-700 !important;
+      box-shadow: 0 1px 0 $gold-leaf-soft, 0 4px 12px rgba($sage-700, 0.25);
       transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba($gold-500, 0.25);
       text-decoration: none !important;
     }
   }
 
   &:not(.btn-primary) {
-    background: $paper-100 !important;
+    background: $parchment-50 !important;
     color: $ink-900 !important;
-    border: 1px solid $paper-500 !important;
+    border: 1px solid $parchment-500 !important;
     &:hover {
-      background: $paper-300 !important;
-      border-color: $gold-500 !important;
+      background: $parchment-200 !important;
+      border-color: $gold-leaf !important;
       transform: translateY(-1px);
       text-decoration: none !important;
     }
   }
 }
 
-// ===== Site footer =====
 .site-footer {
-  font-size: 0.9rem !important;
+  font-size: 0.92rem !important;
   color: $ink-400 !important;
-  border-top: 1px solid $paper-500 !important;
-  padding-top: 1.2em !important;
+  border-top: 1px solid $parchment-400 !important;
+  padding-top: 1.5em !important;
   margin-top: 3em;
-  font-family: "Sarabun", sans-serif;
-  a { color: $gold-600 !important; }
+  font-family: "EB Garamond", "Sarabun", serif !important;
+  font-style: italic;
+  text-align: center;
+  a { color: $sage-600 !important; }
 }
 
-// ===== Breadcrumbs =====
 .breadcrumb-nav {
   font-size: 0.92rem !important;
   color: $ink-500 !important;
-  margin-bottom: 1.3em !important;
-  padding: 0.55em 0.85em;
-  background: rgba($gold-500, 0.05);
-  border-radius: 4px;
-  border-left: 3px solid $gold-500;
+  margin-bottom: 1.4em !important;
+  padding: 0.55em 0 !important;
+  background: transparent;
+  border: none !important;
+  font-family: "EB Garamond", "Sarabun", serif !important;
+  font-style: italic;
 
-  a { color: $gold-600 !important; }
+  a { color: $sage-600 !important; }
   .breadcrumb-nav-list-item:not(:last-child)::after {
-    content: " ▸ ";
-    color: $gold-500;
-    margin: 0 0.4em;
-    font-weight: 700;
+    content: "  ❦  ";
+    color: $gold-leaf;
+    margin: 0 0.2em;
+    font-style: normal;
   }
 }
 
-// ===== Back to top =====
 .back-to-top {
-  color: $gold-600 !important;
-  font-family: "Sarabun", sans-serif !important;
-  &:hover { color: $gold-700 !important; }
+  color: $sage-600 !important;
+  font-family: "EB Garamond", serif !important;
+  font-style: italic;
+  &:hover { color: $sage-700 !important; }
 }
 
-// ===== Aux nav =====
 .aux-nav-list .aux-nav-list-item {
   .site-button {
     color: $ink-500 !important;
-    font-family: "Sarabun", sans-serif !important;
+    font-family: "EB Garamond", "Sarabun", serif !important;
+    font-style: italic;
+    font-size: 0.95em;
     &:hover {
-      color: $gold-700 !important;
-      background: rgba($gold-500, 0.08) !important;
+      color: $sage-700 !important;
+      background: rgba($sage-500, 0.08) !important;
     }
   }
 }
 
-// ===== Anchor heading icons =====
 .anchor-heading {
-  color: rgba($gold-500, 0.4) !important;
-  &:hover { color: $gold-500 !important; }
+  color: rgba($gold-leaf, 0.5) !important;
+  &:hover { color: $gold-leaf !important; }
 }
 
-// ===== Hero title (home) =====
 .fs-9 {
-  font-family: "IBM Plex Sans Thai", "Sarabun", sans-serif !important;
-  background: linear-gradient(135deg, $ink-900 0%, $gold-500 100%);
+  font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, $ink-900 0%, $sage-700 50%, $gold-leaf 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800 !important;
-  letter-spacing: -0.02em;
 }
 
 .fs-6 {
-  font-family: "Sarabun", sans-serif !important;
+  font-family: "EB Garamond", "Sarabun", serif !important;
+  font-style: italic;
   color: $ink-500 !important;
+  font-size: 1.15em !important;
 }
 
-// ===== Print =====
 @media print {
-  .side-bar, .site-header, .breadcrumb-nav, .back-to-top {
+  .side-bar, .site-header, .breadcrumb-nav, .back-to-top, #bg-canvas {
     display: none !important;
   }
   .main-content { max-width: 100%; }
-  pre { white-space: pre-wrap; word-wrap: break-word; }
+  body::before { display: none; }
 }
 
-// ===== Mobile =====
+@media (prefers-reduced-motion: reduce) {
+  #bg-canvas { display: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     font-size: 1rem !important;
-    h1 { font-size: 1.7rem !important; }
-    h2 { font-size: 1.3rem !important; }
-    h3 { font-size: 1.12rem !important; }
+    h1 { font-size: 1.85rem !important; letter-spacing: 0.02em !important; }
+    h2 { font-size: 1.25rem !important; }
+    h3 { font-size: 1.05rem !important; }
     table { font-size: 0.85em; }
     pre, .highlight { font-size: 0.78rem !important; }
   }
+  #bg-canvas { opacity: 0.3; }
 }
