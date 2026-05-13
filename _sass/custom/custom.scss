@@ -141,26 +141,26 @@ body {
 }
 
 .main-content {
-  font-size: 1.0875rem !important;
-  line-height: 1.9 !important;
-  letter-spacing: 0.005em;
+  font-size: 1rem !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0;
   max-width: 76ch;
   color: $ink-700 !important;
-  font-family: "EB Garamond", "Sarabun", "IBM Plex Sans Thai", serif !important;
-  font-feature-settings: "onum" 1, "liga" 1;
+  font-family: "Sarabun", "IBM Plex Sans Thai", "EB Garamond", Georgia, serif !important;
+  font-feature-settings: "kern" 1, "liga" 1;
 
   p {
-    margin-bottom: 1.3em;
+    margin-bottom: 1.2em;
     color: $ink-700;
+    font-size: 1rem;
   }
 
   // ===== Headings =====
   h1 {
-    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
-    font-size: 2.4rem !important;
+    font-family: "IBM Plex Sans Thai", "Cinzel", Georgia, serif !important;
+    font-size: 1.95rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.04em !important;
-    text-transform: uppercase;
+    letter-spacing: -0.005em !important;
     margin-top: 0.4em !important;
     margin-bottom: 0.9em !important;
     padding-bottom: 0.4em;
@@ -181,12 +181,11 @@ body {
   }
 
   h2 {
-    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
-    font-size: 1.55rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-top: 2.2em !important;
+    font-family: "IBM Plex Sans Thai", "Cinzel", Georgia, serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.003em;
+    margin-top: 2em !important;
     margin-bottom: 0.8em !important;
     color: $ink-900 !important;
     line-height: 1.4 !important;
@@ -202,15 +201,14 @@ body {
   }
 
   h3 {
-    font-family: "Cinzel", "IBM Plex Sans Thai", serif !important;
-    font-size: 1.2rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.08em;
-    margin-top: 1.8em !important;
+    font-family: "IBM Plex Sans Thai", "Cinzel", Georgia, serif !important;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0;
+    margin-top: 1.6em !important;
     margin-bottom: 0.5em !important;
     color: $sage-700 !important;
     line-height: 1.45 !important;
-    text-transform: uppercase;
   }
 
   h4 {
@@ -412,18 +410,19 @@ body {
   div.highlighter-rouge,
   figure.highlight,
   div.highlight {
-    background: $ms-bg !important;
-    color: #d5cea3 !important;
+    background: $parchment-50 !important;
+    color: $ink-900 !important;
     border-radius: 3px !important;
     padding: 1.1em 1.3em !important;
     margin: 1.8em 0 !important;
     overflow-x: auto !important;
-    box-shadow: 0 2px 12px rgba($ink-900, 0.12) !important;
+    box-shadow: 0 1px 0 $parchment-400, 0 4px 14px rgba($ink-900, 0.05) !important;
+    border: 1px solid $parchment-400 !important;
     border-left: 3px solid $gold-leaf !important;
 
     pre, code {
       background: transparent !important;
-      color: #d5cea3 !important;
+      color: $ink-900 !important;
       border: none !important;
       padding: 0 !important;
       font-family: "JetBrains Mono", monospace !important;
@@ -434,16 +433,16 @@ body {
   }
 
   .highlight {
-    .c, .c1, .cm  { color: #7a8a7e !important; font-style: italic; }
-    .k, .kd, .kn, .kr { color: #d4a85a !important; }
-    .s, .s1, .s2 { color: #a8c39e !important; }
-    .n, .nx      { color: #d5cea3 !important; }
-    .nf, .nc     { color: #e3c98c !important; }
-    .nb          { color: #c4b884 !important; }
-    .mi, .m, .mf { color: #d4a85a !important; }
-    .o, .ow      { color: #d4a85a !important; }
-    .p           { color: #c4bea0 !important; }
-    .err         { color: #e8a8a8 !important; }
+    .c, .c1, .cm  { color: #8a958f !important; font-style: italic; }
+    .k, .kd, .kn, .kr { color: $sage-700 !important; font-weight: 600; }
+    .s, .s1, .s2 { color: #7a5818 !important; }
+    .n, .nx      { color: $ink-900 !important; }
+    .nf, .nc     { color: #44603f !important; font-weight: 600; }
+    .nb          { color: #6a4f0e !important; }
+    .mi, .m, .mf { color: #b8893a !important; }
+    .o, .ow      { color: $sage-700 !important; }
+    .p           { color: $ink-500 !important; }
+    .err         { color: #a6342f !important; }
   }
 
   .mermaid {
